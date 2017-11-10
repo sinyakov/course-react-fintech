@@ -1,13 +1,12 @@
 sudo: false
 language: node_js
 node_js:
-- 8
+  - 8
 after_success:
-- npm run build
-- npm run cli
+  - npm run build
 deploy:
-- provider: script
-  script: now alias $(now build -t=$NOW_TOKEN --public) -t=$NOW_TOKEN
-  on:
-    branch: stage-1-dz
-  skip_cleanup: true
+  - provider: script
+    script: now alias $(now build -t=$NOW_TOKEN --public) -t=$NOW_TOKEN
+    on:
+      branch: stage-1-dz
+    skip_cleanup: true
