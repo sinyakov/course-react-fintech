@@ -16,10 +16,16 @@
     "cli": "npm run test:cli && npm run lint:js",
     "eject": "react-scripts eject",
     "precommit": "lint-staged",
-    "prepush": "npm run test:cli"
+    "prepush": "npm run test:cli",
+    "deploy": "now -e NODE_ENV=production --token $NOW_TOKEN --npm",
+    "alias": "now alias --token=$NOW_TOKEN"
   },
   "lint-staged": {
     "*.@(js|jsx)": "eslint --quiet"
+  },
+  "now": {
+    "name": "course-react-fintech",
+    "alias": "course-react-fintech"
   },
   "devDependencies": {
     "cross-env": "^5.1.1",

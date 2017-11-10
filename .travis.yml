@@ -1,7 +1,14 @@
 sudo: false
 language: node_js
 node_js:
-  - 8
+- 8
 after_success:
-  - npm run build
-  - npm run cli
+- npm run build
+- npm run cli
+deploy:
+- provider: script
+  script: npm run deploy
+  after_script: npm run alias
+env:
+  global:
+    secure: h7KJF9tiWti+axrPK9ZheiSPrPihttxct/XYY2tSrWEKllGoJDZPqvU9MzJWTgqEZOskcN234EsOIIlVK6MnpylffSdsystXQrfmxMSQB2NJt8ntpo2bxTHIdxnSfNNeaFHTYWUj/tAB1kkoQ3pZ+yYbmorUNzqlKH+AyGreb4vJeT8+yYad2ZTJauXGsXmFgWiPMxwPKObiwzq79zosr7cNhKgI6TklsYrAkg/frm/yNQhV6znwGwYuRxBg+nS2q2g1y7n5sfWepCgJXtHKxbed0chRV5VW1Vc/lJqifpR5LRrMGf3poVVYn9jTs/lBAO+3hkCBL50jT0ZQzp9O4zf/cA0UAsnE3EuPh0BX/vtg/JDkqn/5ne62mzGiD75LOQtwl01PNRZzxbyBZYadTvZXhxczk0ScSESYXENdNn/XMiaYOSP8cCv6Fihs4hn2rVSSI+XJT+EwweqUJXoHW1iW9sL6qGM66HVVHQEKj3FWQlMZ+gO0FMmYj1iWBdeTytYPoRtS31uMzf42PSizOUZVEaIrv9F4m0mt2TIGFbgFc3JQ6VJYl3/ihFm+obJK8yrxRtOrjvYE0ApcrjPDlKVvskk+i6XHhIgCKqXvcfmzQDiUcY+xs5PACnO/lPb/W/XipM2fC1JcbEJA1O/pheOcnAbzhDFS34pKUsJV054=
