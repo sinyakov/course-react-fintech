@@ -4,4 +4,9 @@ node_js:
   - 8
 after_success:
   - npm run build
-  - npm run cli
+deploy:
+  - provider: script
+    script: now alias $(now build -t=$NOW_TOKEN --public) $URL_DEV -t=$NOW_TOKEN
+    on:
+      branch: stage-1-dz
+    skip_cleanup: true
