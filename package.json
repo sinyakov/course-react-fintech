@@ -21,10 +21,6 @@
   "lint-staged": {
     "*.@(js|jsx)": "eslint --quiet"
   },
-  "now": {
-    "name": "course-react-fintech",
-    "alias": "course-react-fintech"
-  },
   "devDependencies": {
     "cross-env": "^5.1.1",
     "enzyme": "^3.1.1",
