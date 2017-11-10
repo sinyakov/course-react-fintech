@@ -16,9 +16,7 @@
     "cli": "npm run test:cli && npm run lint:js",
     "eject": "react-scripts eject",
     "precommit": "lint-staged",
-    "prepush": "npm run test:cli",
-    "deploy": "now -e NODE_ENV=production --token $NOW_TOKEN --npm",
-    "alias": "now alias --token=$NOW_TOKEN"
+    "prepush": "npm run test:cli"
   },
   "lint-staged": {
     "*.@(js|jsx)": "eslint --quiet"
@@ -33,6 +31,6 @@
     "enzyme-adapter-react-16": "^1.0.4",
     "husky": "^0.14.3",
     "lint-staged": "^4.3.0",
-    "now": "^7.3.0"
+    "now": "^8.4.0"
   }
 }
