@@ -8,6 +8,8 @@ after_success:
 deploy:
 - provider: script
   script: npm run deploy
+  on:
+    branch: stage-1-dz
   after_script: npm run alias
 env:
   global:
