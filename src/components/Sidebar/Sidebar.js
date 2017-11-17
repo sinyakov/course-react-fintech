@@ -11,7 +11,7 @@ export default ({ accounts }) => {
       <div className="Sidebar__header">Счета</div>
       {Object.values(accounts).map(({ currency, name, amount }, index) => (
         <NavLink
-          to={`/account/${index}`}
+          to={`/account/${index + 1}`}
           key={name}
           className="Link"
           activeClassName="Link--active"
