@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import CreateAccount from './CreateAccount';
 
-const createEvent = (name, value) => ({ target: { name, value }});
+const createEvent = (name, value) => ({ target: { name, value } });
 
 describe('CreateAccount', () => {
   /*
@@ -15,7 +15,7 @@ describe('CreateAccount', () => {
 
   beforeEach(() => {
     handleSubmit = jest.fn();
-    component = mount(<CreateAccount createAcoount={handleSubmit} />);
+    component = mount(<CreateAccount createAccount={handleSubmit} />);
   });
 
   describe('Поле name', () => {
@@ -27,7 +27,9 @@ describe('CreateAccount', () => {
     });
 
     it('Проверяем, что в поле можно записать значение и оно будет в state', () => {
-      component.find('input[name="name"]').simulate('change', createEvent('name', 'Безумные траты'));
+      component
+        .find('input[name="name"]')
+        .simulate('change', createEvent('name', 'Безумные траты'));
 
       expect(component.state().name).toBe('Безумные траты');
     });
@@ -46,7 +48,9 @@ describe('CreateAccount', () => {
     });
 
     it('Проверяем, что в поле можно записать значение и оно будет в state', () => {
-      component.find('input[name="currency"]').simulate('change', createEvent('currency', 'Безумные траты'));
+      component
+        .find('input[name="currency"]')
+        .simulate('change', createEvent('currency', 'Безумные траты'));
 
       expect(component.state().currency).toBe('Безумные траты');
     });
@@ -65,7 +69,9 @@ describe('CreateAccount', () => {
     });
 
     it('Проверяем, что в поле можно записать значение и оно будет в state', () => {
-      component.find('input[name="description"]').simulate('change', createEvent('description', 'Безумные траты'));
+      component
+        .find('input[name="description"]')
+        .simulate('change', createEvent('description', 'Безумные траты'));
 
       expect(component.state().description).toBe('Безумные траты');
     });
@@ -83,33 +89,47 @@ describe('CreateAccount', () => {
     Но, нужна такая реализация, которую можно будет потом расширить к примеру - валидацию дат, валидация типа введенных данных.
      */
     it('Заполняем только поле name и отправляем', () => {
-      component.find('input[name="name"]').simulate('change',createEvent('name', 'Кредитка'));
+      component
+        .find('input[name="name"]')
+        .simulate('change', createEvent('name', 'Кредитка'));
       component.find('form').simulate('submit');
 
       expect(handleSubmit).not.toHaveBeenCalled();
     });
 
     it('Заполняем только поле currency и отправляем', () => {
-      component.find('input[name="currency"]').simulate('change',createEvent('currency', 'RUB'));
+      component
+        .find('input[name="currency"]')
+        .simulate('change', createEvent('currency', 'RUB'));
       component.find('form').simulate('submit');
 
       expect(handleSubmit).not.toHaveBeenCalled();
     });
 
     it('Заполняем только поле description и отправляем', () => {
-      component.find('input[name="description"]').simulate('change',createEvent('description', 'Безумные траты'));
+      component
+        .find('input[name="description"]')
+        .simulate('change', createEvent('description', 'Безумные траты'));
       component.find('form').simulate('submit');
 
       expect(handleSubmit).not.toHaveBeenCalled();
     });
 
     it('Корректно заполняем поля', () => {
-      component.find('input[name="name"]').simulate('change',createEvent('name', 'Кредитка'));
-      component.find('input[name="currency"]').simulate('change',createEvent('currency', 'RUB'));
-      component.find('input[name="description"]').simulate('change',createEvent('description', 'Безумные траты'));
+      component
+        .find('input[name="name"]')
+        .simulate('change', createEvent('name', 'Кредитка'));
+      component
+        .find('input[name="currency"]')
+        .simulate('change', createEvent('currency', 'RUB'));
+      component
+        .find('input[name="description"]')
+        .simulate('change', createEvent('description', 'Безумные траты'));
       component.find('form').simulate('submit');
 
-      expect(handleSubmit.mock.calls).toEqual([[{"name": "Кредитка", "currency": "RUB", "description": "Безумные траты"}]]);
+      expect(handleSubmit.mock.calls).toEqual([
+        [{ name: 'Кредитка', currency: 'RUB', description: 'Безумные траты' }]
+      ]);
 
       handleSubmit.mockClear();
 
@@ -120,12 +140,22 @@ describe('CreateAccount', () => {
 
   describe('Очистка формы после отправки', () => {
     it('Проверяем, что в state инитал данные после отправки', () => {
-      component.find('input[name="name"]').simulate('change',createEvent('name', 'Кредитка'));
-      component.find('input[name="currency"]').simulate('change',createEvent('currency', 'RUB'));
-      component.find('input[name="description"]').simulate('change',createEvent('description', 'Безумные траты'));
+      component
+        .find('input[name="name"]')
+        .simulate('change', createEvent('name', 'Кредитка'));
+      component
+        .find('input[name="currency"]')
+        .simulate('change', createEvent('currency', 'RUB'));
+      component
+        .find('input[name="description"]')
+        .simulate('change', createEvent('description', 'Безумные траты'));
       component.find('form').simulate('submit');
 
-      expect(component.state()).toEqual({"name": "", "currency": "", "description": ""});
+      expect(component.state()).toEqual({
+        name: '',
+        currency: '',
+        description: ''
+      });
     });
   });
 });
