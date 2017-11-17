@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import About from '../pages/About';
+import PATH from '../PATH';
 
 /* мы должны замоикровать реализацию роутинга для тестов */
 jest.mock('react-router-dom/BrowserRouter', () => ({ children }) => (
@@ -10,11 +11,6 @@ jest.mock('react-router-dom/BrowserRouter', () => ({ children }) => (
 /* При мокировании, остальные файлы нужно переводить на require. Виноват сам принцип ES modules */
 const { MemoryRouter } = require('react-router-dom');
 const App = require('./App').default;
-
-const PATH =
-  !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
-    ? '/'
-    : '/react';
 
 const createEvent = (name, value) => ({ target: { name, value } });
 
