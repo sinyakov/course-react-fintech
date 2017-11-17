@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import './App.css';
+
 import Sidebar from '../components/Sidebar/Sidebar';
 import Home from '../pages/Home';
 import About from '../pages/About';
@@ -7,9 +10,10 @@ import CreateAccount from '../pages/CreateAccount';
 
 import database from '../services/database';
 
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-
-import './App.css';
+const PATH =
+  !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
+    ? '/'
+    : '/react';
 
 class App extends Component {
   constructor() {
@@ -60,10 +64,10 @@ class App extends Component {
               <Sidebar accounts={this.state.accounts} />
             </div>
             <div className="App__content">
-              <Route exact path="/" component={Home} />
-              <Route exact path="/about" component={About} />
+              <Route exact path={PATH} component={Home} />
+              <Route exact path={`${PATH}/about`} component={About} />
               <Route
-                path="/account/:accountId"
+                path={`${PATH}/account/:accountId`}
                 component={() => (
                   <Account
                     operations={this.state.operations}
