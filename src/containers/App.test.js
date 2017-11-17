@@ -3,13 +3,20 @@ import { mount } from 'enzyme';
 import About from '../pages/About';
 
 /* мы должны замоикровать реализацию роутинга для тестов */
-jest.mock('react-router-dom/BrowserRouter', () => ({children}) => <div>{children}</div>);
+jest.mock('react-router-dom/BrowserRouter', () => ({ children }) => (
+  <div>{children}</div>
+));
 
 /* При мокировании, остальные файлы нужно переводить на require. Виноват сам принцип ES modules */
 const { MemoryRouter } = require('react-router-dom');
 const App = require('./App').default;
 
-const createEvent = (name, value) => ({ target: { name, value }});
+const PATH =
+  !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
+    ? '/'
+    : '/react';
+
+const createEvent = (name, value) => ({ target: { name, value } });
 
 describe('Интеграционный тест', () => {
   /*
@@ -22,8 +29,8 @@ describe('Интеграционный тест', () => {
     * На странице у нас должен быть присутсвовать h1 и p тег
     * */
     const wrapper = mount(
-      <MemoryRouter initialEntries={['/about']}>
-        <App/>
+      <MemoryRouter initialEntries={[`${PATH}/about`]}>
+        <App />
       </MemoryRouter>
     );
 
@@ -31,11 +38,11 @@ describe('Интеграционный тест', () => {
       expect(wrapper.find(About).length).toBe(1);
     });
 
-    it('На странице присутствует h1 тег', function () {
+    it('На странице присутствует h1 тег', function() {
       expect(wrapper.find('h1').length).toBe(1);
     });
 
-    it('На странице присутствует p тег', function () {
+    it('На странице присутствует p тег', function() {
       expect(wrapper.find('p').length).toBe(1);
     });
   });
@@ -48,14 +55,20 @@ describe('Интеграционный тест', () => {
     */
     const wrapper = mount(
       <MemoryRouter initialEntries={['/create-account']}>
-        <App/>
+        <App />
       </MemoryRouter>
     );
 
     const setValue = (name, currency, des) => {
-      wrapper.find('input[name="name"]').simulate('change',createEvent('name', name));
-      wrapper.find('input[name="currency"]').simulate('change',createEvent('currency', currency));
-      wrapper.find('input[name="description"]').simulate('change',createEvent('description', des));
+      wrapper
+        .find('input[name="name"]')
+        .simulate('change', createEvent('name', name));
+      wrapper
+        .find('input[name="currency"]')
+        .simulate('change', createEvent('currency', currency));
+      wrapper
+        .find('input[name="description"]')
+        .simulate('change', createEvent('description', des));
     };
 
     describe('Работа с формой', () => {
@@ -66,16 +79,24 @@ describe('Интеграционный тест', () => {
         wrapper.find('form').simulate('submit');
       });
       it('Проверяем присутсвие стейта в App.js', () => {
-        const result = {"1": {"currency": "RUB", "description": "Безумные траты", "name": "Кредитка"}};
+        const result = {
+          '1': {
+            currency: 'RUB',
+            description: 'Безумные траты',
+            name: 'Кредитка'
+          }
+        };
         expect(wrapper.find(App).instance().state.accounts).toEqual(result);
       });
 
       it('Повторно отправляем форму и проверяем, что там 2 account', () => {
-        const result = ["1", "2"];
+        const result = ['1', '2'];
         setValue('Дебетовка', 'USB', 'Безумные траты');
         wrapper.find('form').simulate('submit');
 
-        expect(Object.keys(wrapper.find(App).instance().state.accounts)).toEqual(result);
+        expect(
+          Object.keys(wrapper.find(App).instance().state.accounts)
+        ).toEqual(result);
       });
     });
   });
