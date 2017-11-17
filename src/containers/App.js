@@ -9,11 +9,7 @@ import Account from '../pages/Account';
 import CreateAccount from '../pages/CreateAccount';
 
 import database from '../services/database';
-
-const PATH =
-  !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
-    ? '/'
-    : '/react';
+import PATH from '../PATH';
 
 class App extends Component {
   constructor() {
@@ -64,7 +60,7 @@ class App extends Component {
               <Sidebar accounts={this.state.accounts} />
             </div>
             <div className="App__content">
-              <Route exact path={PATH} component={Home} />
+              <Route exact path={`${PATH}/`} component={Home} />
               <Route exact path={`${PATH}/about`} component={About} />
               <Route
                 path={`${PATH}/account/:accountId`}
@@ -76,7 +72,7 @@ class App extends Component {
                 )}
               />
               <Route
-                path="/create-account"
+                path={`${PATH}/create-account`}
                 component={this.CreateAccountWithAddAccount}
               />
             </div>

@@ -1,7 +1,8 @@
 import React from 'react';
-import Money from '../Money/Money';
-
 import { NavLink } from 'react-router-dom';
+
+import Money from '../Money/Money';
+import PATH from '../../PATH';
 
 import './Sidebar.css';
 
@@ -11,7 +12,7 @@ export default ({ accounts }) => {
       <div className="Sidebar__header">Счета</div>
       {Object.values(accounts).map(({ currency, name, amount }, index) => (
         <NavLink
-          to={`/account/${index + 1}`}
+          to={`${PATH}/account/${index + 1}`}
           key={name}
           className="Link"
           activeClassName="Link--active"
@@ -25,12 +26,21 @@ export default ({ accounts }) => {
         </NavLink>
       ))}
       <NavLink
-        to="/create-account"
+        to={`${PATH}/create-account`}
         className="Link"
         activeClassName="Link--active"
       >
         <div className="Sidebar__account">
           <div className="Sidebar__account-name">Добавить счет</div>
+        </div>
+      </NavLink>
+      <NavLink
+        to={`${PATH}/about`}
+        className="Link"
+        activeClassName="Link--active"
+      >
+        <div className="Sidebar__account">
+          <div className="Sidebar__account-name">About</div>
         </div>
       </NavLink>
     </div>
