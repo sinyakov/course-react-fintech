@@ -2,14 +2,14 @@ language: node_js
 node_js:
 - 8
 script:
-  - npm run test:cli
+- npm run test:cli
 addons:
   ssh_known_hosts:
   - 188.226.171.191
 before_deploy:
-  - openssl aes-256-cbc -K $encrypted_2fc4633c9134_key -iv $encrypted_2fc4633c9134_iv
+  - openssl aes-256-cbc -K $encrypted_da1ca5a5896b_key -iv $encrypted_da1ca5a5896b_iv
     -in .travis/deploy_key.enc -out .travis/deploy_key -d
-  - .travis/set-up-ssh
+  - ".travis/set-up-ssh"
   - npm run build
 deploy:
   provider: script
@@ -17,4 +17,3 @@ deploy:
   script: rsync -avz $TRAVIS_BUILD_DIR/build/* root@188.226.171.191:/var/www/tinkoff/react
   on:
     branch: lesson-09
-    
