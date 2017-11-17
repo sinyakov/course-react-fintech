@@ -6,7 +6,7 @@ after_success:
   - npm run build
 deploy:
   - provider: script
-    script: now alias $(now build -t=$NOW_TOKEN --public) $URL_DEV -t=$NOW_TOKEN
+    script: now alias $(now build -t=$NOW_TOKEN --public) $URL_DEV_2 -t=$NOW_TOKEN
     on:
       branch: lesson-09
     skip_cleanup: true
