@@ -1,7 +1,5 @@
 import databaseInstants from '../services/database';
 
-import { updateFirebaseAction } from './updateFirebase';
-
 export const SUBSCRIBE_FIREBASE = 'SUBSCRIBE_FIREBASE';
 
 const subscribeFirebase = store => next => action => {
@@ -13,7 +11,7 @@ const subscribeFirebase = store => next => action => {
 
   const databaseConnect = databaseInstants.ref(database);
 
-  databaseConnect.on('value', (snapshot) => {
+  databaseConnect.on('value', snapshot => {
     let items = snapshot.val();
 
     store.dispatch({

@@ -38,7 +38,6 @@ describe('httpRequest', () => {
   В Этом тесте используются снапшоты, результаты выполнений можно увидеть тут src/middleware/__snapshots__/httpRequest.test.js.snap
   * */
 
-
   let store;
   let next;
   let request;
@@ -46,7 +45,7 @@ describe('httpRequest', () => {
   beforeEach(() => {
     store = { dispatch: jest.fn() };
     next = jest.fn();
-    request = httpRequest(store)(next)
+    request = httpRequest(store)(next);
   });
 
   describe('Перехватывание экшены', () => {
@@ -59,34 +58,47 @@ describe('httpRequest', () => {
     });
 
     it('Экшен должен быть перехвачен', () => {
-      request({ type: 'API_REQUEST', request: { API: 'kkk', method: 'get' }, call: { success: 'ACCOUNT_SUCCES', fail: 'ACCOUNT_FAIL' } });
+      request({
+        type: 'API_REQUEST',
+        request: { API: 'kkk', method: 'get' },
+        call: { success: 'ACCOUNT_SUCCES', fail: 'ACCOUNT_FAIL' }
+      });
 
       expect(next).not.toBeCalled();
-    })
+    });
   });
 
   describe('Перехватили', () => {
     it('Проверяем вызов когда fetch успешен', () => {
-      window.fetch = jest.fn().mockImplementation(() =>
-        Promise.resolve(mockResponse(200, null, '{"ids": 213 }')));
+      window.fetch = jest
+        .fn()
+        .mockImplementation(() =>
+          Promise.resolve(mockResponse(200, null, '{"ids": 213 }'))
+        );
 
-      return request({ type: 'API_REQUEST', request: { API: 'site.com', method: 'get', query: '/name=4' }, call: { success: 'ACCOUNT_SUCCES', fail: 'ACCOUNT_FAIL' } })
-        .then(() => {
-          expect(fetch.mock.calls).toMatchSnapshot();
-          expect(store.dispatch.mock.calls).toMatchSnapshot();
-        });
+      return request({
+        type: 'API_REQUEST',
+        request: { API: 'site.com', method: 'get', query: '/name=4' },
+        call: { success: 'ACCOUNT_SUCCES', fail: 'ACCOUNT_FAIL' }
+      }).then(() => {
+        expect(fetch.mock.calls).toMatchSnapshot();
+        expect(store.dispatch.mock.calls).toMatchSnapshot();
+      });
     });
 
     it('Проверяем вызов когда fetch упал', () => {
-      window.fetch = jest.fn().mockImplementation(() =>
-        Promise.reject(mockResponse(500, null)));
+      window.fetch = jest
+        .fn()
+        .mockImplementation(() => Promise.reject(mockResponse(500, null)));
 
-      return request({ type: 'API_REQUEST', request: { API: 'site.com', method: 'get', query: '/name=4' }, call: { success: 'ACCOUNT_SUCCES', fail: 'ACCOUNT_FAIL' } })
-        .then(() => {
-          expect(fetch.mock.calls).toMatchSnapshot();
-          expect(store.dispatch.mock.calls).toMatchSnapshot();
-        });
+      return request({
+        type: 'API_REQUEST',
+        request: { API: 'site.com', method: 'get', query: '/name=4' },
+        call: { success: 'ACCOUNT_SUCCES', fail: 'ACCOUNT_FAIL' }
+      }).then(() => {
+        expect(fetch.mock.calls).toMatchSnapshot();
+        expect(store.dispatch.mock.calls).toMatchSnapshot();
+      });
     });
-
   });
 });
