@@ -16,66 +16,50 @@ describe('notes reducer', () => {
   });
 
   it('should add a note', () => {
-    expect(notes(
-      [{id: 1, name: 'test'}],
-      {
+    expect(
+      notes([{ id: 1, name: 'test' }], {
         type: ADD_NOTE,
-        note: {id: 2, name: 'new'}
-      }
-    )).toEqual([
-      {id: 1, name: 'test'},
-      {id: 2, name: 'new'}
-    ]);
+        note: { id: 2, name: 'new' }
+      })
+    ).toEqual([{ id: 1, name: 'test' }, { id: 2, name: 'new' }]);
   });
 
   it('should update the note', () => {
-    expect(notes(
-      [
-        {id: 1, name: 'test'},
-        {id: 2, name: 'old'}
-      ],
-      {
+    expect(
+      notes([{ id: 1, name: 'test' }, { id: 2, name: 'old' }], {
         type: UPDATE_NOTE,
-        note: { id: 2, name: 'new'}
-      }
-    )).toEqual([
-      {id: 1, name: 'test'},
-      {id: 2, name: 'new'}
-    ]);
+        note: { id: 2, name: 'new' }
+      })
+    ).toEqual([{ id: 1, name: 'test' }, { id: 2, name: 'new' }]);
   });
 
   it('should remove note', () => {
-    expect(notes(
-      [
-        {id: 1, name: 'test'},
-        {id: 2, name: 'old'}
-      ],
-      {
+    expect(
+      notes([{ id: 1, name: 'test' }, { id: 2, name: 'old' }], {
         type: REMOVE_NOTE,
         id: 2
-      }
-    )).toEqual([
-      {id: 1, name: 'test'}
-    ]);
+      })
+    ).toEqual([{ id: 1, name: 'test' }]);
   });
 
   it('should rorder notes', () => {
-    expect(notes(
-      [
-        {id: 1, name: 'test'},
-        {id: 3, name: 'new'},
-        {id: 2, name: 'old'}
-      ],
-      {
-        type: REORDER_NOTE,
-        fromId: 2,
-        toId: 1
-      }
-    )).toEqual([
-      {id: 2, name: 'old'},
-      {id: 3, name: 'new'},
-      {id: 1, name: 'test'}
+    expect(
+      notes(
+        [
+          { id: 1, name: 'test' },
+          { id: 3, name: 'new' },
+          { id: 2, name: 'old' }
+        ],
+        {
+          type: REORDER_NOTE,
+          fromId: 2,
+          toId: 1
+        }
+      )
+    ).toEqual([
+      { id: 2, name: 'old' },
+      { id: 3, name: 'new' },
+      { id: 1, name: 'test' }
     ]);
   });
 });
-
